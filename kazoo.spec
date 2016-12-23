@@ -4,7 +4,7 @@
 #
 Name     : kazoo
 Version  : 2.2.1
-Release  : 16
+Release  : 17
 URL      : https://pypi.python.org/packages/source/k/kazoo/kazoo-2.2.1.tar.gz
 Source0  : https://pypi.python.org/packages/source/k/kazoo/kazoo-2.2.1.tar.gz
 Summary  : Higher Level Zookeeper Client
