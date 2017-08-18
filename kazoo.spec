@@ -4,13 +4,20 @@
 #
 Name     : kazoo
 Version  : 2.2.1
-Release  : 19
-URL      : https://pypi.python.org/packages/source/k/kazoo/kazoo-2.2.1.tar.gz
-Source0  : https://pypi.python.org/packages/source/k/kazoo/kazoo-2.2.1.tar.gz
+Release  : 20
+URL      : http://pypi.debian.net/kazoo/kazoo-2.2.1.tar.gz
+Source0  : http://pypi.debian.net/kazoo/kazoo-2.2.1.tar.gz
 Summary  : Higher Level Zookeeper Client
 Group    : Development/Tools
 License  : Apache-2.0
 Requires: kazoo-python
+Requires: coverage
+Requires: eventlet
+Requires: flake8
+Requires: gevent
+Requires: nose
+Requires: python-mock
+Requires: six
 BuildRequires : pbr
 BuildRequires : pip
 BuildRequires : python-dev
@@ -19,12 +26,8 @@ BuildRequires : setuptools
 BuildRequires : six
 
 %description
-=====
 Kazoo
-=====
-.. image:: https://travis-ci.org/python-zk/kazoo.svg?branch=master
-:target: https://travis-ci.org/python-zk/kazoo
-:alt: Travis Build
+        =====
 
 %package python
 Summary: python components for the kazoo package.
@@ -38,20 +41,27 @@ python components for the kazoo package.
 %setup -q -n kazoo-2.2.1
 
 %build
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1484551131
+export SOURCE_DATE_EPOCH=1503094906
 python2 setup.py build -b py2
 python3 setup.py build -b py3
 
 %install
-export SOURCE_DATE_EPOCH=1484551131
+export SOURCE_DATE_EPOCH=1503094906
 rm -rf %{buildroot}
 python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
 python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+echo ----[ mark ]----
+cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
+echo ----[ mark ]----
 
 %files
 %defattr(-,root,root,-)
 
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python*/*
+/usr/lib/python2*/*
+/usr/lib/python3*/*
