@@ -4,12 +4,14 @@
 #
 Name     : kazoo
 Version  : 2.2.1
-Release  : 21
+Release  : 22
 URL      : http://pypi.debian.net/kazoo/kazoo-2.2.1.tar.gz
 Source0  : http://pypi.debian.net/kazoo/kazoo-2.2.1.tar.gz
 Summary  : Higher Level Zookeeper Client
 Group    : Development/Tools
 License  : Apache-2.0
+Requires: kazoo-python3
+Requires: kazoo-license
 Requires: kazoo-python
 Requires: coverage
 Requires: eventlet
@@ -18,9 +20,9 @@ Requires: gevent
 Requires: nose
 Requires: python-mock
 Requires: six
+BuildRequires : buildreq-distutils3
 BuildRequires : pbr
 BuildRequires : pip
-BuildRequires : python-dev
 BuildRequires : python3-dev
 BuildRequires : setuptools
 BuildRequires : six
@@ -29,12 +31,30 @@ BuildRequires : six
 Kazoo
         =====
 
+%package license
+Summary: license components for the kazoo package.
+Group: Default
+
+%description license
+license components for the kazoo package.
+
+
 %package python
 Summary: python components for the kazoo package.
 Group: Default
+Requires: kazoo-python3
 
 %description python
 python components for the kazoo package.
+
+
+%package python3
+Summary: python3 components for the kazoo package.
+Group: Default
+Requires: python3-core
+
+%description python3
+python3 components for the kazoo package.
 
 
 %prep
@@ -45,15 +65,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1503094906
-python2 setup.py build -b py2
+export SOURCE_DATE_EPOCH=1532210160
 python3 setup.py build -b py3
 
 %install
-export SOURCE_DATE_EPOCH=1503094906
 rm -rf %{buildroot}
-python2 -tt setup.py build -b py2 install --root=%{buildroot} --force
-python3 -tt setup.py build -b py3 install --root=%{buildroot} --force
+mkdir -p %{buildroot}/usr/share/doc/kazoo
+cp LICENSE %{buildroot}/usr/share/doc/kazoo/LICENSE
+python3 -tt setup.py build -b py3 install --root=%{buildroot}
 echo ----[ mark ]----
 cat %{buildroot}/usr/lib/python3*/site-packages/*/requires.txt || :
 echo ----[ mark ]----
@@ -61,7 +80,13 @@ echo ----[ mark ]----
 %files
 %defattr(-,root,root,-)
 
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/kazoo/LICENSE
+
 %files python
 %defattr(-,root,root,-)
-/usr/lib/python2*/*
+
+%files python3
+%defattr(-,root,root,-)
 /usr/lib/python3*/*
