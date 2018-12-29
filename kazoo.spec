@@ -4,7 +4,7 @@
 #
 Name     : kazoo
 Version  : 2.5.0
-Release  : 26
+Release  : 27
 URL      : http://pypi.debian.net/kazoo/kazoo-2.5.0.tar.gz
 Source0  : http://pypi.debian.net/kazoo/kazoo-2.5.0.tar.gz
 Summary  : Higher Level Zookeeper Client
