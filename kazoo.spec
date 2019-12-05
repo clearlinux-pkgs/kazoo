@@ -4,7 +4,7 @@
 #
 Name     : kazoo
 Version  : 2.6.1
-Release  : 30
+Release  : 31
 URL      : https://files.pythonhosted.org/packages/01/d6/77d8067b56ef78326b8cbc85d896e29cb9ceae996a24d752e1cb93011b85/kazoo-2.6.1.tar.gz
 Source0  : https://files.pythonhosted.org/packages/01/d6/77d8067b56ef78326b8cbc85d896e29cb9ceae996a24d752e1cb93011b85/kazoo-2.6.1.tar.gz
 Summary  : Higher Level Zookeeper Client
